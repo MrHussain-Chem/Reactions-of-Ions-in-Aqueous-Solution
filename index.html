@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.6 Reactions of Ions in Aqueous Solution</title>
+<style>
+  :root {
+    --primary: #1a3a5c;
+    --accent: #2e7dd1;
+    --accent-light: #e8f2fc;
+    --green: #1e7e4e;
+    --green-light: #e6f4ed;
+    --amber: #b45309;
+    --amber-light: #fef3e2;
+    --red: #c0392b;
+    --red-light: #fdecea;
+    --border: #d1dce8;
+    --text: #1a2733;
+    --muted: #5a7080;
+    --bg: #f7f9fc;
+    --white: #ffffff;
+    --shadow: 0 2px 8px rgba(0,0,0,0.08);
+    --practical: #5b2d8e;
+    --practical-light: #f3eefa;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; }
+  header { background: var(--primary); color: white; padding: 28px 32px 22px; }
+  header h1 { font-size: 1.55rem; font-weight: 700; letter-spacing: -0.3px; }
+  header p { font-size: 0.88rem; opacity: 0.75; margin-top: 4px; }
+  .header-meta { display: flex; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
+  .badge { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 20px; padding: 3px 12px; font-size: 0.78rem; }
+  nav { background: white; border-bottom: 1px solid var(--border); padding: 0 16px; display: flex; gap: 2px; overflow-x: auto; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .nav-btn { background: none; border: none; padding: 13px 12px; font-size: 0.8rem; color: var(--muted); cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; font-weight: 500; transition: all 0.2s; }
+  .nav-btn:hover { color: var(--accent); }
+  .nav-btn.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+  .nav-btn.practical-tab { color: var(--practical); }
+  .nav-btn.practical-tab.active { border-bottom-color: var(--practical); color: var(--practical); }
+  main { max-width: 920px; margin: 0 auto; padding: 28px 20px 60px; }
+  .section { display: none; }
+  .section.active { display: block; }
+  .collapsible { background: white; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 14px; overflow: hidden; box-shadow: var(--shadow); }
+  .collapsible-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; cursor: pointer; user-select: none; transition: background 0.15s; }
+  .collapsible-header:hover { background: var(--accent-light); }
+  .collapsible-header h3 { font-size: 0.97rem; font-weight: 600; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+  .collapsible-header .icon { font-size: 1.1rem; }
+  .chevron { font-size: 0.75rem; color: var(--accent); transition: transform 0.25s; flex-shrink: 0; }
+  .collapsible.open .chevron { transform: rotate(180deg); }
+  .collapsible-body { display: none; padding: 0 20px 20px; border-top: 1px solid var(--border); }
+  .collapsible.open .collapsible-body { display: block; }
+  .collapsible.practical-panel { border-color: #c9a8f0; }
+  .collapsible.practical-panel .collapsible-header:hover { background: var(--practical-light); }
+  .collapsible.practical-panel .collapsible-header h3 { color: var(--practical); }
+  .collapsible.practical-panel .chevron { color: var(--practical); }
+  .key-def { background: var(--accent-light); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 14px 0; }
+  .key-def strong { color: var(--primary); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px; }
+  .key-def .spec-ref { font-size: 0.75rem; color: var(--accent); font-weight: 600; float: right; background: white; padding: 1px 7px; border-radius: 10px; border: 1px solid var(--accent); margin-top: -2px; }
+  .eq-box { background: #f0f4f8; border: 1px solid #ccd8e4; border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-family: 'Courier New', monospace; font-size: 0.88rem; line-height: 2.0; }
+  .eq-label { font-size: 0.78rem; color: var(--muted); font-family: 'Segoe UI', sans-serif; display: block; margin-bottom: 4px; font-style: italic; }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.86rem; }
+  th { background: var(--primary); color: white; padding: 10px 12px; text-align: left; font-weight: 600; }
+  td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  tr:last-child td { border-bottom: none; }
+  .dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 5px; vertical-align: middle; border: 1px solid rgba(0,0,0,0.15); }
+  .dot-green { background: #4caf50; } .dot-blue { background: #2196f3; } .dot-brown { background: #795548; }
+  .dot-white { background: #f5f5f5; border-color: #aaa; } .dot-yellow { background: #fdd835; }
+  .dot-colorless { background: linear-gradient(135deg,#e0e0e0,#f5f5f5); } .dot-paleblue { background: #90caf9; }
+  .dot-deepblue { background: #0d47a1; } .dot-bluegreen { background: #00897b; } .dot-violet { background: #9c27b0; }
+  .dot-paleyellow { background: #fff9c4; border-color: #f9a825; }
+  .tip { background: var(--green-light); border-left: 4px solid var(--green); border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 12px 0; font-size: 0.88rem; }
+  .tip strong { color: var(--green); }
+  .warning { background: var(--amber-light); border-left: 4px solid var(--amber); border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 12px 0; font-size: 0.88rem; }
+  .warning strong { color: var(--amber); }
+  .mistake { background: var(--red-light); border-left: 4px solid var(--red); border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 12px 0; font-size: 0.88rem; }
+  .mistake strong { color: var(--red); }
+  .practical-note { background: var(--practical-light); border-left: 4px solid var(--practical); border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 12px 0; font-size: 0.88rem; }
+  .practical-note strong { color: var(--practical); }
+  .aqa-box { background: #fff8e1; border: 1px solid #ffe082; border-left: 4px solid #f9a825; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 12px 0; font-size: 0.87rem; }
+  .aqa-box strong { color: #e65100; display: block; margin-bottom: 4px; }
+  .worked { background: white; border: 2px solid var(--accent); border-radius: 10px; margin: 16px 0; overflow: hidden; }
+  .worked-header { background: var(--accent); color: white; padding: 10px 16px; font-size: 0.85rem; font-weight: 600; }
+  .worked-body { padding: 16px; }
+  .step { display: flex; gap: 12px; margin: 10px 0; align-items: flex-start; }
+  .step-num { background: var(--accent); color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+  .step-content { flex: 1; font-size: 0.9rem; }
+  .reveal-btn { background: var(--accent); color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.83rem; font-weight: 600; margin-top: 8px; transition: background 0.15s; }
+  .reveal-btn:hover { background: #1a5fa8; }
+  .reveal-content { display: none; margin-top: 12px; }
+  .reveal-content.shown { display: block; }
+  .exam-q { background: white; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 18px; overflow: hidden; box-shadow: var(--shadow); }
+  .exam-q-header { background: #f0f4f8; padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .exam-q-header h4 { font-size: 0.88rem; color: var(--primary); font-weight: 600; }
+  .marks-badge { background: var(--primary); color: white; border-radius: 12px; padding: 2px 10px; font-size: 0.78rem; font-weight: 600; white-space: nowrap; }
+  .exam-q-body { padding: 16px 18px; }
+  .q-text { font-size: 0.92rem; margin-bottom: 12px; line-height: 1.75; }
+  .ms-item { display: flex; gap: 8px; margin: 6px 0; font-size: 0.87rem; line-height: 1.5; }
+  .ms-tick { color: var(--green); font-weight: 700; flex-shrink: 0; }
+  .proc-step { display: flex; gap: 14px; margin: 10px 0; align-items: flex-start; }
+  .proc-num { background: var(--practical); color: white; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .proc-content { flex: 1; font-size: 0.9rem; line-height: 1.6; }
+  .obs-table th { background: var(--practical); }
+  .hazard-box { background: #fff8e1; border: 1px solid #ffe082; border-radius: 8px; padding: 12px 16px; margin: 12px 0; font-size: 0.87rem; }
+  .hazard-box strong { color: #f57f17; display: block; margin-bottom: 4px; }
+  .page-title { margin-bottom: 22px; }
+  .page-title h2 { font-size: 1.25rem; color: var(--primary); font-weight: 700; }
+  .page-title p { color: var(--muted); font-size: 0.88rem; margin-top: 4px; }
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
+  @media (max-width: 600px) { .summary-grid { grid-template-columns: 1fr; } }
+  .summary-card { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .summary-card h4 { font-size: 0.85rem; color: var(--primary); font-weight: 700; margin-bottom: 8px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+  .summary-card li { font-size: 0.84rem; line-height: 1.6; }
+  .summary-card ul { padding-left: 16px; }
+  p { margin: 10px 0; } ul { padding-left: 20px; margin: 8px 0; } li { margin: 5px 0; font-size: 0.9rem; }
+  h4 { margin: 14px 0 6px; color: var(--primary); font-size: 0.95rem; }
+  code { font-family: 'Courier New', monospace; font-size: 0.88em; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>2.6 Reactions of Ions in Aqueous Solution</h1>
+  <p>AQA A-Level Chemistry &middot; Year 2 &middot; Paper 1 &middot; Specification Sections 3.2.5 / 3.2.6</p>
+  <div class="header-meta">
+    <span class="badge">&#128214; AQA Spec Aligned</span>
+    <span class="badge">&#9879;&#65039; Worked Examples</span>
+    <span class="badge">&#128300; Required Practical 11</span>
+    <span class="badge">&#127919; Exam Questions &amp; Mark Schemes</span>
+  </div>
+</header>
+
+<nav>
+  <button class="nav-btn active" onclick="showSection('s1',this)">1. Hydrated Ions</button>
+  <button class="nav-btn" onclick="showSection('s2',this)">2. Acidity</button>
+  <button class="nav-btn" onclick="showSection('s3',this)">3. + NaOH</button>
+  <button class="nav-btn" onclick="showSection('s4',this)">4. + NH3</button>
+  <button class="nav-btn" onclick="showSection('s5',this)">5. + Na2CO3</button>
+  <button class="nav-btn" onclick="showSection('s6',this)">6. + Conc. HCl</button>
+  <button class="nav-btn" onclick="showSection('s7',this)">7. Summary</button>
+  <button class="nav-btn practical-tab" onclick="showSection('s9',this)">&#128300; Required Practical</button>
+  <button class="nav-btn" onclick="showSection('s8',this)">&#127919; Exam Questions</button>
+</nav>
+
+<main>
+
+<!-- SECTION 1 -->
+<div id="s1" class="section active">
+  <div class="page-title"><h2>1. Hydrated Metal Cations</h2><p>Metal ions in aqueous solution exist as hexa-aqua complex ions</p></div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#128167;</span>Key definitions (AQA spec language)</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <div class="key-def">
+        <strong>Ligand <span class="spec-ref">AQA Spec 3.2.5</span></strong>
+        A molecule or ion that forms a co-ordinate (dative covalent) bond to a metal ion by donating a lone pair of electrons to it.
+      </div>
+      <div class="key-def">
+        <strong>Complex Ion <span class="spec-ref">AQA Spec 3.2.5</span></strong>
+        A metal ion surrounded by ligands bonded by co-ordinate (dative covalent) bonds.
+      </div>
+      <div class="key-def">
+        <strong>Co-ordination Number <span class="spec-ref">AQA Spec 3.2.5</span></strong>
+        The total number of co-ordinate bonds formed between the central metal ion and its ligands.
+      </div>
+      <div class="aqa-box">
+        <strong>&#9888;&#65039; AQA Terminology Alert</strong>
+        AQA mark schemes require you to use the terms <em>co-ordinate bond</em> or <em>dative covalent bond</em> when describing ligand bonding. Using "covalent bond" alone will not score the mark. The ligand <strong>donates</strong> the lone pair — the metal ion <strong>accepts</strong> it.
+      </div>
+      <p>When metal salts dissolve in water, the metal cation is surrounded by <strong>six water molecules</strong> as ligands, each donating a lone pair to the metal ion via a co-ordinate bond. This gives an <strong>octahedral</strong> complex ion with a co-ordination number of 6.</p>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#127912;</span>Colours of hexa-aqua ions in solution</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <table>
+        <tr><th>Metal ion</th><th>Formula of hexa-aqua ion</th><th>Colour in solution</th></tr>
+        <tr><td>Fe2+</td><td>[Fe(H2O)6]2+</td><td><span class="dot dot-green"></span>Pale green</td></tr>
+        <tr><td>Cu2+</td><td>[Cu(H2O)6]2+</td><td><span class="dot dot-blue"></span>Blue</td></tr>
+        <tr><td>Fe3+</td><td>[Fe(H2O)6]3+</td><td><span class="dot dot-violet"></span>Pale violet — <em>appears yellow-brown in practice</em> due to partial hydrolysis forming [Fe(H2O)5(OH)]2+</td></tr>
+        <tr><td>Al3+</td><td>[Al(H2O)6]3+</td><td><span class="dot dot-colorless"></span>Colourless (Al3+ is not a transition metal ion — d sub-shell is empty)</td></tr>
+      </table>
+      <p><strong>Why are transition metal ions coloured?</strong> The five d orbitals in a transition metal complex are split into two energy levels. Electrons absorb specific wavelengths of visible light to be promoted from lower to higher d orbitals. The remaining (transmitted) wavelengths give the ion its observed colour. Al3+ and other ions with a full or empty d sub-shell cannot do this and so are colourless.</p>
+      <div class="warning">
+        <strong>&#9888;&#65039; AQA Mark Scheme:</strong> [Fe(H2O)6]3+ solutions appear <em>yellow-brown</em> in practice, not purple. AQA examiners expect students to state that the pale violet colour is due to the actual [Fe(H2O)6]3+ complex, but the yellow-brown appearance in solution is caused by partial hydrolysis producing <strong>[Fe(H2O)5(OH)]2+</strong>. Do not describe the solution as simply "purple."
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#128279;</span>Types of reactions of metal aqua ions</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <table>
+        <tr><th>Reaction type</th><th>AQA definition</th><th>Bond broken</th></tr>
+        <tr><td><strong>Hydrolysis</strong></td><td>Loss of H+ from an H2O ligand — the metal ion acts as a Bronsted-Lowry acid (proton donor)</td><td>O-H bond in co-ordinated water</td></tr>
+        <tr><td><strong>Ligand substitution</strong></td><td>One ligand is replaced by another ligand</td><td>Metal-oxygen co-ordinate bond (when H2O is replaced)</td></tr>
+        <tr><td><strong>Redox</strong></td><td>The metal ion changes oxidation state by gaining or losing electrons</td><td>Electron transfer</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2 -->
+<div id="s2" class="section">
+  <div class="page-title"><h2>2. Acidity of Hexa-aqua Ions</h2><p>Why metal salt solutions are acidic — and how charge density explains the difference</p></div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#129514;</span>Hydrolysis and the production of H+</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <div class="key-def">
+        <strong>Bronsted-Lowry Acid <span class="spec-ref">AQA Spec 3.1.2</span></strong>
+        A proton donor — a species that donates H+ ions to another species.
+      </div>
+      <div class="key-def">
+        <strong>Hydrolysis <span class="spec-ref">AQA Spec 3.2.6</span></strong>
+        The breaking of a bond using water. In metal aqua ions, this refers to the loss of H+ from a co-ordinated water ligand.
+      </div>
+      <p>The positive charge on the metal ion withdraws electron density from the O-H bonds in the co-ordinated water ligands, <strong>polarising</strong> those bonds. If the metal ion has sufficient <strong>charge density</strong>, the O-H bond weakens enough for a proton (H+) to be donated to a free water molecule, making the solution acidic.</p>
+      <div class="eq-box">
+        <span class="eq-label">Hydrolysis of a 3+ aqua ion — AQA accepted form:</span>
+        [M(H2O)6]3+(aq) + H2O(l) &#8652; [M(H2O)5(OH)]2+(aq) + H3O+(aq)
+      </div>
+      <div class="eq-box">
+        <span class="eq-label">Hydrolysis of a 2+ aqua ion — AQA accepted form:</span>
+        [M(H2O)6]2+(aq) + H2O(l) &#8652; [M(H2O)5(OH)]+(aq) + H3O+(aq)
+      </div>
+      <div class="aqa-box">
+        <strong>&#9888;&#65039; AQA Equation Requirements</strong>
+        These equations <strong>must use a reversible arrow (&#8652;)</strong> — hydrolysis is an equilibrium process. Using a one-way arrow will lose the mark. AQA also accepts H+(aq) in place of H3O+(aq), but H3O+ is preferred as it more accurately represents what happens.
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#128202;</span>Effect of charge density on acidity</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <table>
+        <tr><th>Aqua ion</th><th>Typical pH of solution</th></tr>
+        <tr><td>[M(H2O)6]+</td><td>~7 (neutral)</td></tr>
+        <tr><td>[M(H2O)6]2+</td><td>~6 (weakly acidic)</td></tr>
+        <tr><td>[M(H2O)6]3+</td><td>~3 (more acidic)</td></tr>
+        <tr><td>[M(H2O)6]4+</td><td>~0 (strongly acidic)</td></tr>
+      </table>
+      <div class="aqa-box">
+        <strong>&#9999;&#65039; AQA Mark Scheme — Chain of Reasoning for Acidity Questions</strong>
+        To gain full marks, you must state ALL of the following steps in order:
+        <ol style="margin-top:6px; padding-left:18px;">
+          <li>The metal ion has a higher charge and/or smaller ionic radius &#8594; higher <strong>charge density</strong></li>
+          <li>The metal ion <strong>polarises the O-H bond</strong> in the co-ordinated water ligand more strongly</li>
+          <li>The O-H bond is <strong>weakened</strong> more</li>
+          <li>A proton (H+) is more easily donated to a water molecule &#8594; <strong>lower pH</strong></li>
+        </ol>
+        Stating only "higher charge" or "more acidic" without the full reasoning chain will not score all marks.
+      </div>
+      <div class="eq-box">
+        <span class="eq-label">Illustrative pKa values — lower pKa = stronger acid (equilibrium lies further right):</span>
+        [Fe(H2O)6]2+&nbsp; pKa &#8776; 5.9<br>
+        [Fe(H2O)6]3+&nbsp; pKa &#8776; 2.5&nbsp; &#8592; lower pKa = stronger acid<br>
+        [Al(H2O)6]3+&nbsp; pKa &#8776; 4.9<br>
+        [Cu(H2O)6]2+&nbsp; pKa &#8776; 7.5
+      </div>
+      <div class="tip">
+        <strong>&#9989; Note:</strong> These pKa values are not required by the AQA specification — they are included here to illustrate relative acid strengths. You need to know the <em>trend</em> (higher charge density &#8594; lower pKa &#8594; stronger acid) but do not need to memorise specific values.
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#9879;&#65039;</span>Worked Example — Comparing acidity of [Al(H2O)6]3+ and [Cu(H2O)6]2+</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <div class="worked">
+        <div class="worked-header">&#9879;&#65039; Predict and explain which ion produces the lower pH solution: [Al(H2O)6]3+ or [Cu(H2O)6]2+</div>
+        <div class="worked-body">
+          <div class="step"><div class="step-num">1</div><div class="step-content"><strong>State the prediction:</strong> [Al(H2O)6]3+ will produce the lower pH solution.</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-content"><strong>Charge density:</strong> Al3+ has a higher charge (+3) and a smaller ionic radius than Cu2+. This gives Al3+ a greater charge density.</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-content"><strong>Polarisation:</strong> The higher charge density of Al3+ causes greater polarisation of the O-H bonds in the co-ordinated water ligands.</div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-content"><strong>Bond weakening:</strong> The O-H bonds in [Al(H2O)6]3+ are weakened to a greater extent than in [Cu(H2O)6]2+.</div></div>
+          <div class="step"><div class="step-num">5</div><div class="step-content"><strong>Conclusion:</strong> Protons (H+) are more easily donated to free water molecules from [Al(H2O)6]3+ &#8594; greater [H+] &#8594; lower pH.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3 -->
+<div id="s3" class="section">
+  <div class="page-title"><h2>3. Reactions with Sodium Hydroxide (NaOH)</h2><p>OH- ions drive hydrolysis further — forming insoluble metal hydroxide precipitates</p></div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#128300;</span>Mechanism — what happens when NaOH is added?</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <p>OH- ions from NaOH act as a <strong>Bronsted-Lowry base (proton acceptor)</strong>, removing H+ ions from the co-ordinated water ligands. This shifts the hydrolysis equilibrium to the right (Le Chatelier's principle), producing a neutral, uncharged metal hydroxide complex that is <strong>insoluble</strong> in water and precipitates out of solution.</p>
+      <div class="eq-box">
+        <span class="eq-label">General equation — M3+ with NaOH (AQA accepted form):</span>
+        [M(H2O)6]3+(aq) + 3OH-(aq) &#8652; [M(H2O)3(OH)3](s) + 3H2O(l)
+      </div>
+      <div class="eq-box">
+        <span class="eq-label">General equation — M2+ with NaOH (AQA accepted form):</span>
+        [M(H2O)6]2+(aq) + 2OH-(aq) &#8652; [M(H2O)4(OH)2](s) + 2H2O(l)
+      </div>
+      <div class="aqa-box">
+        <strong>&#9999;&#65039; AQA Equation Requirements</strong>
+        These equations use a <strong>reversible arrow (&#8652;)</strong> because the reaction can be reversed by adding acid. The precipitate is uncharged and insoluble — AQA mark schemes credit explanations that state "the neutral/uncharged complex is insoluble."
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#129515;</span>Specific reactions with NaOH — observations and equations</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <table>
+        <tr><th>Ion</th><th>+ NaOH (dropwise)</th><th>+ NaOH (excess)</th></tr>
+        <tr>
+          <td><span class="dot dot-green"></span><strong>[Fe(H2O)6]2+</strong><br><small>pale green soln</small></td>
+          <td><span class="dot dot-green"></span>Green precipitate of [Fe(H2O)4(OH)2](s) — darkens to brown on standing in air due to oxidation by O2 to Fe(III) hydroxide</td>
+          <td>No further reaction</td>
+        </tr>
+        <tr>
+          <td><span class="dot dot-blue"></span><strong>[Cu(H2O)6]2+</strong><br><small>blue soln</small></td>
+          <td><span class="dot dot-blue"></span>Blue precipitate of [Cu(H2O)4(OH)2](s)</td>
+          <td>No further reaction</td>
+        </tr>
+        <tr>
+          <td><span class="dot dot-paleyellow"></span><strong>[Fe(H2O)6]3+</strong><br><small>yellow-brown soln</small></td>
+          <td><span class="dot dot-brown"></span>Brown precipitate of [Fe(H2O)3(OH)3](s)</td>
+          <td>No further reaction</td>
+        </tr>
+        <tr>
+          <td><span class="dot dot-colorless"></span><strong>[Al(H2O)6]3+</strong><br><small>colourless soln</small></td>
+          <td><span class="dot dot-white"></span>White precipitate of [Al(H2O)3(OH)3](s)</td>
+          <td>White precipitate <strong>dissolves</strong> to give a colourless solution of [Al(H2O)2(OH)4]-(aq) — Al(OH)3 is <strong>amphoteric</strong></td>
+        </tr>
+      </table>
+
+      <h4>AQA equations for each reaction:</h4>
+      <div class="eq-box">
+        <span class="eq-label">Fe2+ + NaOH:</span>
+        [Fe(H2O)6]2+(aq) + 2OH-(aq) &#8652; [Fe(H2O)4(OH)2](s) + 2H2O(l)
+      </div>
+      <div class="eq-box">
+        <span class="eq-label">Cu2+ + NaOH:</span>
+        [Cu(H2O)6]2+(aq) + 2OH-(aq) &#8652; [Cu(H2O)4(OH)2](s) + 2H2O(l)
+      </div>
+      <div class="eq-box">
+        <span class="eq-label">Fe3+ + NaOH:</span>
+        [Fe(H2O)6]3+(aq) + 3OH-(aq) &#8652; [Fe(H2O)3(OH)3](s) + 3H2O(l)
+      </div>
+      <div class="eq-box">
+        <span class="eq-label">Al3+ + NaOH &#8594; white precipitate:</span>
+        [Al(H2O)6]3+(aq) + 3OH-(aq) &#8652; [Al(H2O)3(OH)3](s) + 3H2O(l)
+      </div>
+      <div class="eq-box">
+        <span class="eq-label">Al(OH)3 + excess NaOH &#8594; dissolves (amphoteric — acting as acid):</span>
+        [Al(H2O)3(OH)3](s) + OH-(aq) &#8594; [Al(H2O)2(OH)4]-(aq) + H2O(l)
+      </div>
+      <div class="eq-box">
+        <span class="eq-label">Al(OH)3 + acid &#8594; dissolves (amphoteric — acting as base):</span>
+        [Al(H2O)3(OH)3](s) + 3H+(aq) &#8594; [Al(H2O)6]3+(aq)
+      </div>
+
+      <div class="key-def">
+        <strong>Amphoteric <span class="spec-ref">AQA Spec 3.2.6</span></strong>
+        A species that can act as both a Bronsted-Lowry acid (proton donor) and a Bronsted-Lowry base (proton acceptor). Al(OH)3 is amphoteric — it reacts with both acids and excess alkali.
+      </div>
+      <div class="warning">
+        <strong>&#9888;&#65039; AQA Mark Scheme:</strong> When describing the Fe2+ precipitate darkening, you must state it turns brown due to <em>oxidation by oxygen in the air</em>, converting Fe(II) hydroxide [Fe(H2O)4(OH)2] to Fe(III) hydroxide [Fe(H2O)3(OH)3]. Simply saying "it turns brown" alone does not score the explanation mark.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 4 -->
+<div id="s4" class="section">
+  <div class="page-title"><h2>4. Reactions with Aqueous Ammonia (NH3)</h2><p>Same initial precipitates as NaOH — but one key difference with Cu2+ in excess</p></div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#128168;</span>Mechanism — what happens when NH3 is added?</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <p>Aqueous ammonia is a <strong>weak base</strong>. It acts as a <strong>Bronsted-Lowry base (proton acceptor)</strong>, removing H+ from the co-ordinated water ligands. This produces the same insoluble metal hydroxide precipitates as NaOH, but via formation of NH4+ rather than water.</p>
+      <div class="eq-box">
+        <span class="eq-label">General equation — M3+ with NH3:</span>
+        [M(H2O)6]3+(aq) + 3NH3(aq) &#8652; [M(H2O)3(OH)3](s) + 3NH4+(aq)
+      </div>
+      <div class="eq-box">
+        <span class="eq-label">General equation — M2+ with NH3:</span>
+        [M(H2O)6]2+(aq) + 2NH3(aq) &#8652; [M(H2O)4(OH)2](s) + 2NH4+(aq)
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#129515;</span>Specific reactions with NH3 — observations and equations</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <table>
+        <tr><th>Ion</th><th>+ NH3 (dropwise)</th><th>+ NH3 (excess)</th></tr>
+        <tr>
+          <td><strong>[Fe(H2O)6]2+</strong></td>
+          <td><span class="dot dot-green"></span>Green precipitate [Fe(H2O)4(OH)2](s)</td>
+          <td>No further reaction</td>
+        </tr>
+        <tr>
+          <td><strong>[Cu(H2O)6]2+</strong></td>
+          <td><span class="dot dot-paleblue"></span><strong>Pale blue</strong> precipitate [Cu(H2O)4(OH)2](s)</td>
+          <td><span class="dot dot-deepblue"></span>Pale blue precipitate <strong>dissolves</strong> to give a <strong>deep blue</strong> solution of [Cu(H2O)2(NH3)4]2+ — ligand substitution</td>
+        </tr>
+        <tr>
+          <td><strong>[Fe(H2O)6]3+</strong></td>
+          <td><span class="dot dot-brown"></span>Brown precipitate [Fe(H2O)3(OH)3](s)</td>
+          <td>No further reaction</td>
+        </tr>
+        <tr>
+          <td><strong>[Al(H2O)6]3+</strong></td>
+          <td><span class="dot dot-white"></span>White precipitate [Al(H2O)3(OH)3](s)</td>
+          <td>No further reaction — NH3 is too weak a base to dissolve the precipitate</td>
+        </tr>
+      </table>
+
+      <div class="aqa-box">
+        <strong>&#9888;&#65039; AQA Colour Distinction — Cu2+ with NaOH vs NH3</strong>
+        The critical colour distinction AQA mark schemes test is between the <strong>precipitate</strong> stage and the <strong>deep blue solution</strong> formed with excess NH3. Most mark schemes accept "blue precipitate" for both the NaOH and dropwise NH3 stages (since both produce the same compound). However, the safest approach is:
+        <ul style="margin-top:6px;">
+          <li>Cu2+ + NaOH &#8594; <strong>blue</strong> precipitate</li>
+          <li>Cu2+ + NH3 (dropwise) &#8594; <strong>pale blue</strong> precipitate</li>
+          <li>Cu2+ + NH3 (excess) &#8594; <strong>deep blue</strong> solution &#8592; this is the distinction that <em>must</em> be made</li>
+        </ul>
+      </div>
+
+      <h4>Key equations for Cu2+ + NH3:</h4>
+      <div class="eq-box">
+        <span class="eq-label">Cu2+ + limited NH3 — hydrolysis (pale blue precipitate):</span>
+        [Cu(H2O)6]2+(aq) + 2NH3(aq) &#8652; [Cu(H2O)4(OH)2](s) + 2NH4+(aq)
+      </div>
+      <div class="eq-box">
+        <span class="eq-label">Cu2+ + excess NH3 — ligand substitution (deep blue solution):</span>
+        [Cu(H2O)4(OH)2](s) + 4NH3(aq) &#8652; [Cu(H2O)2(NH3)4]2+(aq) + 2H2O(l) + 2OH-(aq)
+      </div>
+      <div class="eq-box">
+        <span class="eq-label">Overall equation — Cu2+ + excess NH3 (AQA accepted combined form):</span>
+        [Cu(H2O)6]2+(aq) + 4NH3(aq) &#8652; [Cu(H2O)2(NH3)4]2+(aq) + 4H2O(l)
+      </div>
+
+      <div class="tip">
+        <strong>&#9989; AQA Key Distinction — NaOH vs NH3 with Al3+:</strong> With <strong>excess NaOH</strong>, the Al(OH)3 precipitate dissolves (amphoteric behaviour). With <strong>excess NH3</strong>, the precipitate does <em>not</em> dissolve. AQA examiners expect the reason: NH3 is a weaker base than NaOH and cannot provide a high enough concentration of OH- to further deprotonate Al(OH)3.
+      </div>
+      <div class="warning">
+        <strong>&#9888;&#65039; AQA Mark Scheme:</strong> The formula for the product of Cu2+ + excess NH3 must be written as <strong>[Cu(H2O)2(NH3)4]2+</strong> — only four of the six water ligands are substituted. Writing [Cu(NH3)4]2+ or [Cu(NH3)6]2+ will not score the formula mark.
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#9879;&#65039;</span>Worked Example — Cu2+ + excess NH3 (two-stage answer)</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <div class="worked">
+        <div class="worked-header">&#9879;&#65039; Describe and explain what happens when NH3(aq) is added dropwise to [Cu(H2O)6]2+, then in excess.</div>
+        <div class="worked-body">
+          <div class="step"><div class="step-num">1</div><div class="step-content"><strong>Observation (dropwise):</strong> A pale blue precipitate forms.</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-content"><strong>Explanation:</strong> NH3 acts as a Bronsted-Lowry base, accepting H+ from the co-ordinated water ligands (hydrolysis). The neutral, uncharged [Cu(H2O)4(OH)2] is insoluble and precipitates.</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-content"><strong>Equation 1:</strong> <code>[Cu(H2O)6]2+(aq) + 2NH3(aq) &#8652; [Cu(H2O)4(OH)2](s) + 2NH4+(aq)</code></div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-content"><strong>Observation (excess NH3):</strong> The pale blue precipitate dissolves to give a deep blue solution.</div></div>
+          <div class="step"><div class="step-num">5</div><div class="step-content"><strong>Explanation:</strong> Ligand substitution occurs — four NH3 molecules replace four H2O ligands around the Cu2+ ion, forming [Cu(H2O)2(NH3)4]2+. NH3 and H2O are similar-sized ligands, so the co-ordination number remains 6.</div></div>
+          <div class="step"><div class="step-num">6</div><div class="step-content"><strong>Equation 2:</strong> <code>[Cu(H2O)4(OH)2](s) + 4NH3(aq) &#8652; [Cu(H2O)2(NH3)4]2+(aq) + 2H2O(l) + 2OH-(aq)</code></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5 -->
+<div id="s5" class="section">
+  <div class="page-title"><h2>5. Reactions with Sodium Carbonate (Na2CO3)</h2><p>The most important distinction — M2+ vs M3+ with carbonate ions</p></div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#129531;</span>M2+ ions + Na2CO3 — simple precipitation</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <p>M2+ aqua ions have a relatively low charge density and are only weakly acidic. They are <strong>not acidic enough</strong> to donate protons to CO3 2- ions. Instead, a simple <strong>ionic precipitation</strong> reaction occurs, forming insoluble metal carbonates. <strong>No gas is produced.</strong></p>
+      <div class="eq-box">
+        <span class="eq-label">Cu2+ + Na2CO3 &#8594; blue-green precipitate:</span>
+        [Cu(H2O)6]2+(aq) + CO3 2-(aq) &#8594; CuCO3(s) + 6H2O(l)
+      </div>
+      <div class="eq-box">
+        <span class="eq-label">Fe2+ + Na2CO3 &#8594; green precipitate:</span>
+        [Fe(H2O)6]2+(aq) + CO3 2-(aq) &#8594; FeCO3(s) + 6H2O(l)
+      </div>
+      <div class="aqa-box">
+        <strong>&#9999;&#65039; AQA Equation Requirement</strong>
+        These equations use a <strong>one-way arrow (&#8594;)</strong> because precipitation reactions go to completion. Note the product is the <em>metal carbonate</em> — CuCO3 and FeCO3 — not the hydroxide.
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#127777;&#65039;</span>M3+ ions + Na2CO3 — hydrolysis and CO2 gas</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <p>M3+ aqua ions have a high charge density and are <strong>sufficiently acidic</strong> to donate protons to CO3 2- ions. CO3 2- acts as a Bronsted-Lowry base, accepting H+ from the co-ordinated water ligands. This drives <strong>hydrolysis</strong> — the metal hydroxide precipitates and <strong>CO2 gas is evolved</strong>.</p>
+      <div class="eq-box">
+        <span class="eq-label">Fe3+ + Na2CO3 &#8594; brown precipitate + CO2 gas:</span>
+        2[Fe(H2O)6]3+(aq) + 3CO3 2-(aq) &#8594; 2[Fe(H2O)3(OH)3](s) + 3CO2(g) + 3H2O(l)
+      </div>
+      <div class="eq-box">
+        <span class="eq-label">Al3+ + Na2CO3 &#8594; white precipitate + CO2 gas:</span>
+        2[Al(H2O)6]3+(aq) + 3CO3 2-(aq) &#8594; 2[Al(H2O)3(OH)3](s) + 3CO2(g) + 3H2O(l)
+      </div>
+      <div class="tip">
+        <strong>&#9989; AQA Key Rule:</strong>
+        <ul style="margin-top:6px;">
+          <li>M2+ + CO3 2- &#8594; metal <em>carbonate</em> precipitate, <strong>no gas</strong></li>
+          <li>M3+ + CO3 2- &#8594; metal <em>hydroxide</em> precipitate + <strong>CO2 gas</strong></li>
+        </ul>
+        The difference arises because [M(H2O)6]3+ is acidic enough to protonate CO3 2-, but [M(H2O)6]2+ is not.
+      </div>
+      <div class="warning">
+        <strong>&#9888;&#65039; AQA Mark Scheme — Common Error:</strong> Writing Fe2(CO3)3, Al2(CO3)3, or any carbonate salt as the product of M3+ + Na2CO3 will score zero. The product is <em>always</em> the <strong>metal hydroxide</strong> when a 3+ ion reacts with Na2CO3 — these carbonate salts do not exist under aqueous conditions.
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#9879;&#65039;</span>Worked Example — Explaining the M2+ vs M3+ difference</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <div class="worked">
+        <div class="worked-header">&#9879;&#65039; Explain why Fe3+(aq) produces different products to Fe2+(aq) when Na2CO3(aq) is added. [4 marks]</div>
+        <div class="worked-body">
+          <div class="step"><div class="step-num">1</div><div class="step-content">Fe3+ has a <strong>higher charge and smaller ionic radius</strong> than Fe2+, giving it a greater <strong>charge density</strong>.</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-content">This means [Fe(H2O)6]3+ is a <strong>stronger Bronsted-Lowry acid</strong> (better proton donor) than [Fe(H2O)6]2+.</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-content">[Fe(H2O)6]3+ is acidic enough to donate H+ to CO3 2- ions. CO3 2- acts as a base, accepting H+ &#8594; CO2 + H2O. The metal undergoes <strong>hydrolysis</strong> &#8594; brown precipitate of [Fe(H2O)3(OH)3] + CO2(g).</div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-content">[Fe(H2O)6]2+ is <strong>not acidic enough</strong> to protonate CO3 2-. Simple ionic <strong>precipitation</strong> occurs instead &#8594; green precipitate of FeCO3(s), no gas evolved.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6 -->
+<div id="s6" class="section">
+  <div class="page-title"><h2>6. Reactions with Conc. HCl &amp; Acid/Base Character of Hydroxides</h2><p>Ligand substitution with Cl- and the amphoteric nature of Al(OH)3</p></div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#128993;</span>Adding concentrated HCl — ligand substitution</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <p>Concentrated HCl provides a high concentration of Cl- ions. Cl- is a <strong>larger ligand</strong> than H2O, so only <strong>four</strong> can fit around the central metal ion. This results in a change in co-ordination number (6 &#8594; 4) and shape (octahedral &#8594; tetrahedral). The reaction is a <strong>ligand substitution</strong>.</p>
+      <table>
+        <tr><th>Aqua ion</th><th>Product with excess Cl-</th><th>Colour change</th></tr>
+        <tr><td>[Fe(H2O)6]2+</td><td>[FeCl4]2-</td><td><span class="dot dot-green"></span>Pale green &#8594; <span class="dot dot-yellow"></span>Yellow</td></tr>
+        <tr><td>[Cu(H2O)6]2+</td><td>[CuCl4]2-</td><td><span class="dot dot-blue"></span>Blue &#8594; <span class="dot dot-bluegreen"></span>Yellow-green</td></tr>
+        <tr><td>[Fe(H2O)6]3+</td><td>[FeCl4]-</td><td><span class="dot dot-paleyellow"></span>Yellow-brown &#8594; <span class="dot dot-yellow"></span>Yellow</td></tr>
+        <tr><td>[Al(H2O)6]3+</td><td>[AlCl4]-</td><td><span class="dot dot-colorless"></span>Colourless &#8594; Colourless</td></tr>
+      </table>
+      <div class="eq-box">
+        <span class="eq-label">General AQA equation (e.g. Cu2+):</span>
+        [Cu(H2O)6]2+(aq) + 4Cl-(aq) &#8652; [CuCl4]2-(aq) + 6H2O(l)
+      </div>
+      <div class="aqa-box">
+        <strong>&#9999;&#65039; AQA Charge Calculation — Very Frequently Penalised</strong>
+        You must recalculate the charge on the chloro complex. Example for Cu2+:<br>
+        Cu is +2; four Cl- each contribute -1 (total -4); overall charge = 2 + (-4) = <strong>-2</strong><br>
+        Product is <strong>[CuCl4]2-</strong> not [CuCl4]2+. Likewise [FeCl4]2- for Fe2+ and [FeCl4]- for Fe3+.
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#9878;&#65039;</span>Acid-base character of metal hydroxide precipitates</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <table>
+        <tr><th>Hydroxide</th><th>Type</th><th>+ Excess acid</th><th>+ Excess base (NaOH)</th></tr>
+        <tr><td>[Fe(H2O)4(OH)2]<br>(Fe2+ hydroxide)</td><td>Basic only</td><td>&#9989; Dissolves &#8594; [Fe(H2O)6]2+ (pale green soln)</td><td>&#10060; No further reaction</td></tr>
+        <tr><td>[Cu(H2O)4(OH)2]<br>(Cu2+ hydroxide)</td><td>Basic only</td><td>&#9989; Dissolves &#8594; [Cu(H2O)6]2+ (blue soln)</td><td>&#10060; No further reaction</td></tr>
+        <tr><td>[Fe(H2O)3(OH)3]<br>(Fe3+ hydroxide)</td><td>Basic only</td><td>&#9989; Dissolves &#8594; [Fe(H2O)6]3+ (yellow-brown soln)</td><td>&#10060; No further reaction</td></tr>
+        <tr><td>[Al(H2O)3(OH)3]<br>(Al3+ hydroxide)</td><td><strong>Amphoteric</strong></td><td>&#9989; Dissolves &#8594; [Al(H2O)6]3+ (colourless soln)</td><td>&#9989; Dissolves &#8594; [Al(H2O)2(OH)4]- (colourless soln)</td></tr>
+      </table>
+      <div class="tip"><strong>&#9989; AQA Summary:</strong> Of the four hydroxides tested in this specification, <strong>only [Al(H2O)3(OH)3] is amphoteric</strong>. All four are basic (react with acid). Only Al(OH)3 also reacts with excess NaOH.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 7 -->
+<div id="s7" class="section">
+  <div class="page-title"><h2>7. Complete Summary</h2><p>All reactions at a glance with precise AQA observations and colour descriptions</p></div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#128203;</span>Full AQA reactions summary table</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <div style="overflow-x:auto;">
+      <table>
+        <tr>
+          <th>Reagent</th>
+          <th><span class="dot dot-green"></span>[Fe(H2O)6]2+<br><small>pale green soln</small></th>
+          <th><span class="dot dot-blue"></span>[Cu(H2O)6]2+<br><small>blue soln</small></th>
+          <th><span class="dot dot-paleyellow"></span>[Fe(H2O)6]3+<br><small>yellow-brown soln</small></th>
+          <th><span class="dot dot-colorless"></span>[Al(H2O)6]3+<br><small>colourless soln</small></th>
+        </tr>
+        <tr>
+          <td><strong>NaOH (dropwise)</strong></td>
+          <td><span class="dot dot-green"></span>Green ppt — turns brown in air (oxidation by O2)</td>
+          <td><span class="dot dot-blue"></span>Blue ppt</td>
+          <td><span class="dot dot-brown"></span>Brown ppt</td>
+          <td><span class="dot dot-white"></span>White ppt</td>
+        </tr>
+        <tr>
+          <td><strong>NaOH (excess)</strong></td>
+          <td>No further reaction</td>
+          <td>No further reaction</td>
+          <td>No further reaction</td>
+          <td>Ppt dissolves &#8594; colourless solution [Al(H2O)2(OH)4]-</td>
+        </tr>
+        <tr>
+          <td><strong>NH3 (dropwise)</strong></td>
+          <td><span class="dot dot-green"></span>Green ppt</td>
+          <td><span class="dot dot-paleblue"></span><strong>Pale blue</strong> ppt</td>
+          <td><span class="dot dot-brown"></span>Brown ppt</td>
+          <td><span class="dot dot-white"></span>White ppt</td>
+        </tr>
+        <tr>
+          <td><strong>NH3 (excess)</strong></td>
+          <td>No further reaction</td>
+          <td><span class="dot dot-deepblue"></span>Ppt dissolves &#8594; <strong>deep blue</strong> solution [Cu(H2O)2(NH3)4]2+</td>
+          <td>No further reaction</td>
+          <td>No further reaction</td>
+        </tr>
+        <tr>
+          <td><strong>Na2CO3</strong></td>
+          <td><span class="dot dot-green"></span>Green ppt FeCO3, no gas</td>
+          <td><span class="dot dot-bluegreen"></span>Blue-green ppt CuCO3, no gas</td>
+          <td><span class="dot dot-brown"></span>Brown ppt [Fe(H2O)3(OH)3] + CO2 bubbles</td>
+          <td><span class="dot dot-white"></span>White ppt [Al(H2O)3(OH)3] + CO2 bubbles</td>
+        </tr>
+        <tr>
+          <td><strong>Conc. HCl</strong></td>
+          <td><span class="dot dot-yellow"></span>Yellow solution [FeCl4]2-</td>
+          <td><span class="dot dot-bluegreen"></span>Yellow-green solution [CuCl4]2-</td>
+          <td><span class="dot dot-yellow"></span>Yellow solution [FeCl4]-</td>
+          <td>Colourless solution [AlCl4]-</td>
+        </tr>
+      </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#128273;</span>AQA key patterns and rules</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <div class="summary-grid">
+        <div class="summary-card"><h4>NaOH vs NH3</h4><ul><li>Both produce same ppts initially (hydrolysis mechanism)</li><li>Excess NaOH: <strong>only Al(OH)3</strong> dissolves (amphoteric)</li><li>Excess NH3: <strong>only Cu(OH)2</strong> dissolves (ligand substitution to deep blue)</li><li>NH3 is too weak a base to dissolve Al(OH)3</li></ul></div>
+        <div class="summary-card"><h4>Na2CO3 rule</h4><ul><li>M2+ &#8594; <em>carbonate</em> ppt, no gas (simple precipitation)</li><li>M3+ &#8594; <em>hydroxide</em> ppt + CO2 gas (hydrolysis)</li><li>Reason: M3+ has higher charge density &#8594; more acidic &#8594; can protonate CO3 2-</li></ul></div>
+        <div class="summary-card"><h4>Conc. HCl</h4><ul><li>All ions: ligand substitution, H2O replaced by Cl-</li><li>Co-ordination number 6 &#8594; 4 (Cl- is larger than H2O)</li><li>Shape: octahedral &#8594; tetrahedral</li><li>Recalculate charge on product every time</li></ul></div>
+        <div class="summary-card"><h4>Amphoteric Al(OH)3</h4><ul><li>Only Al(OH)3 dissolves in excess NaOH &#8594; [Al(H2O)2(OH)4]-</li><li>Does NOT dissolve in excess NH3</li><li>Dissolves in acid &#8594; [Al(H2O)6]3+</li><li>Fe, Cu hydroxides are basic only — never amphoteric</li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REQUIRED PRACTICAL -->
+<div id="s9" class="section">
+  <div class="page-title"><h2>&#128300; Required Practical 11</h2><p>Carry out simple test-tube reactions to identify transition metal ions in aqueous solution</p></div>
+
+  <div class="practical-note"><strong>&#128203; AQA Specification Statement (3.2.6)</strong> Carry out simple test-tube reactions to identify the following metal ions in aqueous solution: Fe2+, Cu2+, Fe3+ and Al3+, using the bases NaOH(aq), NH3(aq) and Na2CO3(aq). This is examined in context in Paper 1 and may appear as a practical skills question in Paper 3.</div>
+
+  <div class="collapsible practical-panel open">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#127919;</span>Aim and overview</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <p>The aim is to use the <strong>characteristic colours and behaviours</strong> of precipitates formed with different reagents to identify unknown metal ion solutions. The ions being identified are: <strong>Fe2+, Cu2+, Fe3+</strong> and <strong>Al3+</strong>.</p>
+      <p>The three reagents used are:</p>
+      <ul>
+        <li><strong>NaOH(aq)</strong> — added dropwise, then in excess</li>
+        <li><strong>NH3(aq)</strong> — added dropwise, then in excess</li>
+        <li><strong>Na2CO3(aq)</strong> — added; observe whether gas is produced</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="collapsible practical-panel">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#9888;&#65039;</span>Hazards and risk assessment</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <div class="hazard-box"><strong>&#129514; Hazards — required for exam questions on this practical:</strong>
+        <ul>
+          <li><strong>NaOH(aq)</strong> — corrosive (concentrated) / irritant (dilute). Wear safety goggles and gloves.</li>
+          <li><strong>NH3(aq)</strong> — irritant, strong pungent smell; vapour is toxic in high concentrations. Use in a well-ventilated laboratory or fume cupboard.</li>
+          <li><strong>Na2CO3(aq)</strong> — low hazard at dilute concentrations, irritant if concentrated. Wear goggles.</li>
+          <li><strong>Metal salt solutions</strong> (e.g. FeSO4, CuSO4, FeCl3, AlCl3) — irritants; some transition metal salts are harmful. Avoid skin contact.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible practical-panel">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#128221;</span>Method — step by step</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <div class="proc-step"><div class="proc-num">1</div><div class="proc-content">Label <strong>12 test tubes</strong> in a rack — four rows (one per ion) and three columns (one per reagent).</div></div>
+      <div class="proc-step"><div class="proc-num">2</div><div class="proc-content">Using a clean pipette, add approximately <strong>2 cm3</strong> of each metal ion solution to the appropriately labelled test tubes. Record the initial colour.</div></div>
+      <div class="proc-step"><div class="proc-num">3</div><div class="proc-content"><strong>NaOH test:</strong> Add NaOH(aq) <em>dropwise</em>. Record the colour of any precipitate. Continue adding NaOH until clearly in <em>excess</em> and record any further changes (particularly for Al3+).</div></div>
+      <div class="proc-step"><div class="proc-num">4</div><div class="proc-content"><strong>NH3 test:</strong> Repeat using NH3(aq). Note the precise shade of the precipitate and observe whether it dissolves in excess (Cu2+ only).</div></div>
+      <div class="proc-step"><div class="proc-num">5</div><div class="proc-content"><strong>Na2CO3 test:</strong> Add Na2CO3(aq). Observe precipitate colour and note whether <strong>bubbles of gas (CO2)</strong> are produced — this is the key M2+ vs M3+ distinction.</div></div>
+      <div class="proc-step"><div class="proc-num">6</div><div class="proc-content">For the Fe2+ test tubes, <strong>leave to stand in air</strong> for several minutes. Record any colour change (green ppt darkens to brown).</div></div>
+      <div class="proc-step"><div class="proc-num">7</div><div class="proc-content">Record all results systematically using precise AQA colour terminology.</div></div>
+      <div class="tip"><strong>&#9989; AQA Practical Tip:</strong> Always add reagents <em>dropwise</em> at first. Adding too much at once masks intermediate observations.</div>
+    </div>
+  </div>
+
+  <div class="collapsible practical-panel">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#128202;</span>Expected results table</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <div style="overflow-x:auto;">
+      <table class="obs-table">
+        <tr>
+          <th>Reagent</th>
+          <th><span class="dot dot-green"></span>Fe2+</th>
+          <th><span class="dot dot-blue"></span>Cu2+</th>
+          <th><span class="dot dot-paleyellow"></span>Fe3+</th>
+          <th><span class="dot dot-colorless"></span>Al3+</th>
+        </tr>
+        <tr><td><strong>NaOH (dropwise)</strong></td><td><span class="dot dot-green"></span>Green ppt</td><td><span class="dot dot-blue"></span>Blue ppt</td><td><span class="dot dot-brown"></span>Brown ppt</td><td><span class="dot dot-white"></span>White ppt</td></tr>
+        <tr><td><strong>NaOH (excess)</strong></td><td>No change</td><td>No change</td><td>No change</td><td>Ppt dissolves &#8594; colourless soln</td></tr>
+        <tr><td><strong>NH3 (dropwise)</strong></td><td><span class="dot dot-green"></span>Green ppt</td><td><span class="dot dot-paleblue"></span><strong>Pale blue</strong> ppt</td><td><span class="dot dot-brown"></span>Brown ppt</td><td><span class="dot dot-white"></span>White ppt</td></tr>
+        <tr><td><strong>NH3 (excess)</strong></td><td>No change</td><td><span class="dot dot-deepblue"></span>Ppt dissolves &#8594; <strong>deep blue</strong> soln</td><td>No change</td><td>No change</td></tr>
+        <tr><td><strong>Na2CO3</strong></td><td><span class="dot dot-green"></span>Green ppt, <strong>no gas</strong></td><td><span class="dot dot-bluegreen"></span>Blue-green ppt, <strong>no gas</strong></td><td><span class="dot dot-brown"></span>Brown ppt + <strong>CO2</strong></td><td><span class="dot dot-white"></span>White ppt + <strong>CO2</strong></td></tr>
+        <tr><td><strong>Standing in air</strong></td><td>Ppt darkens to <strong>brown</strong></td><td>No change</td><td>No change</td><td>No change</td></tr>
+      </table>
+      </div>
+      <div class="practical-note" style="margin-top:14px;"><strong>&#128273; Identification Logic:</strong>
+        <ul style="margin-top:6px;">
+          <li><strong>Pale blue ppt &#8594; deep blue solution with excess NH3</strong> &#8594; Cu2+</li>
+          <li><strong>White ppt &#8594; dissolves in excess NaOH only</strong> &#8594; Al3+</li>
+          <li><strong>Brown ppt + CO2 with Na2CO3</strong> &#8594; Fe3+</li>
+          <li><strong>Green ppt &#8594; turns brown in air</strong> &#8594; Fe2+</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible practical-panel">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#128270;</span>Distinguishing Fe2+ from Al3+</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <table>
+        <tr><th>Test</th><th>Fe2+</th><th>Al3+</th></tr>
+        <tr><td>Initial solution colour</td><td><span class="dot dot-green"></span>Pale green</td><td><span class="dot dot-colorless"></span>Colourless</td></tr>
+        <tr><td>Ppt colour (NaOH/NH3)</td><td><span class="dot dot-green"></span>Green</td><td><span class="dot dot-white"></span>White</td></tr>
+        <tr><td>Excess NaOH</td><td>No change</td><td><strong>Ppt dissolves</strong> &#8594; colourless soln</td></tr>
+        <tr><td>Na2CO3</td><td>Green ppt — <strong>no gas</strong></td><td>White ppt — <strong>CO2 gas</strong></td></tr>
+        <tr><td>Standing in air</td><td>Green ppt <strong>turns brown</strong></td><td>No change</td></tr>
+      </table>
+      <div class="tip"><strong>&#9989; Most reliable single test:</strong> Add excess NaOH — the white Al(OH)3 precipitate dissolves; the green Fe(OH)2 precipitate does not.</div>
+    </div>
+  </div>
+
+  <div class="collapsible practical-panel">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#128161;</span>Evaluation — sources of error</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+      <table>
+        <tr><th>Source of error</th><th>Effect</th><th>Improvement</th></tr>
+        <tr><td>Adding reagent too quickly</td><td>Intermediate ppt stages missed (e.g. pale blue Cu ppt)</td><td>Add one drop at a time; wait between drops</td></tr>
+        <tr><td>Contaminated test tubes</td><td>Spurious precipitates or colour changes</td><td>Use freshly rinsed, clean test tubes</td></tr>
+        <tr><td>Fe2+ solution exposed to air before testing</td><td>Some Fe2+ oxidised to Fe3+ &#8594; results appear like Fe3+</td><td>Prepare Fe2+ solutions freshly; stopper the bottle</td></tr>
+        <tr><td>Insufficient excess reagent</td><td>Dissolution of Al(OH)3 or Cu(OH)2 may not be observed</td><td>Continue adding until no further change occurs</td></tr>
+        <tr><td>Subjective colour descriptions</td><td>"Blue" used for both pale blue and deep blue</td><td>Use precise AQA terminology</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="collapsible practical-panel">
+    <div class="collapsible-header" onclick="toggle(this)"><h3><span class="icon">&#128214;</span>Practical exam questions with mark schemes</h3><span class="chevron">&#9660;</span></div>
+    <div class="collapsible-body">
+
+      <div class="exam-q" style="border-color:#c9a8f0;">
+        <div class="exam-q-header" style="background:var(--practical-light);"><h4 style="color:var(--practical);">Practical Q1 — Identifying an unknown ion</h4><span class="marks-badge" style="background:var(--practical);">4 marks</span></div>
+        <div class="exam-q-body">
+          <p class="q-text">A student tests an unknown solution. A white precipitate forms on addition of NaOH(aq). The precipitate dissolves to give a colourless solution when NaOH is added in excess. When NH3(aq) is added in excess to a separate sample, the white precipitate remains.<br><br>(a) Identify the metal ion present. [1]<br>(b) Write an equation for the reaction with excess NaOH. [2]<br>(c) Explain why the precipitate dissolves in excess NaOH but not in excess NH3. [1]</p>
+          <button class="reveal-btn" onclick="revealAnswer(this)">Show Mark Scheme</button>
+          <div class="reveal-content">
+            <div class="ms-item"><span class="ms-tick">&#10003;</span><span>(a) Al3+ / [Al(H2O)6]3+</span></div>
+            <div class="ms-item"><span class="ms-tick">&#10003;</span><span>(b) [Al(H2O)3(OH)3](s) + OH-(aq) &#8594; [Al(H2O)2(OH)4]-(aq) + H2O(l)</span></div>
+            <div class="ms-item"><span class="ms-tick">&#10003;</span><span>(b) Correct state symbols throughout</span></div>
+            <div class="ms-item"><span class="ms-tick">&#10003;</span><span>(c) NH3 is a weaker base than NaOH / cannot provide a sufficiently high [OH-] to further deprotonate Al(OH)3</span></div>
+            <div class="mistake" style="margin-top:10px;"><strong>&#9888;&#65039; Note:</strong> "NH3 doesn't react" scores zero — it does react initially to form the ppt. The mark is for explaining NH3 is too weak a base to dissolve the precipitate.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="exam-q" style="border-color:#c9a8f0;">
+        <div class="exam-q-header" style="background:var(--practical-light);"><h4 style="color:var(--practical);">Practical Q2 — Distinguishing Fe2+ from Fe3+</h4><span class="marks-badge" style="background:var(--practical);">5 marks</span></div>
+        <div class="exam-q-body">
+          <p class="q-text">A student has two solutions, X and Y. Both contain iron salts. Describe how to determine which contains Fe2+ and which contains Fe3+. Include observations and equations. [5]</p>
+          <button class="reveal-btn" onclick="revealAnswer(this)">Show Mark Scheme</button>
+          <div class="reveal-content">
+            <div class="ms-item"><span class="ms-tick">&#10003;</span><span>Observe colour — Fe2+ is pale green; Fe3+ is yellow-brown</span></div>
+            <div class="ms-item"><span class="ms-tick">&#10003;</span><span>Add NaOH(aq) dropwise — Fe2+ gives green ppt; Fe3+ gives brown ppt</span></div>
+            <div class="ms-item"><span class="ms-tick">&#10003;</span><span>Fe2+: [Fe(H2O)6]2+(aq) + 2OH-(aq) &#8652; [Fe(H2O)4(OH)2](s) + 2H2O(l)</span></div>
+            <div class="ms-item"><span class="ms-tick">&#10003;</span><span>Fe3+: [Fe(H2O)6]3+(aq) + 3OH-(aq) &#8652; [Fe(H2O)3(OH)3](s) + 3H2O(l)</span></div>
+            <div class="ms-item"><span class="ms-tick">&#10003;</span><span>Further: Na2CO3 — Fe3+ gives brown ppt + CO2; Fe2+ gives green ppt, no gas. OR: Fe2+ ppt turns brown in air (oxidation)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="exam-q" style="border-color:#c9a8f0;">
+        <div class="exam-q-header" style="background:var(--practical-light);"><h4 style="color:var(--practical);">Practical Q3 — Evaluating methodology</h4><span class="marks-badge" style="background:var(--practical);">3 marks</span></div>
+        <div class="exam-q-body">
+          <p class="q-text">A student adds a large volume of ammonia solution in one portion to copper(II) sulfate. Suggest why this leads to incomplete observations. [3]</p>
+          <button class="reveal-btn" onclick="revealAnswer(this)">Show Mark Scheme</button>
+          <div class="reveal-content">
+            <div class="ms-item"><span class="ms-tick">&#10003;</span><span>The initial pale blue precipitate of [Cu(H2O)4(OH)2] forms and immediately dissolves in the excess NH3</span></div>
+            <div class="ms-item"><span class="ms-tick">&#10003;</span><span>The student only observes the final deep blue solution of [Cu(H2O)2(NH3)4]2+ and misses the pale blue precipitate stage</span></div>
+            <div class="ms-item"><span class="ms-tick">&#10003;</span><span>The student cannot observe the two-stage nature of the reaction, losing key identification information</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 8 — EXAM QUESTIONS -->
+<div id="s8" class="section">
+  <div class="page-title"><h2>&#127919; Exam Questions</h2><p>AQA-style questions with full mark schemes and common errors</p></div>
+
+  <div class="exam-q">
+    <div class="exam-q-header"><h4>Q1 — Hydrolysis and acidity</h4><span class="marks-badge">5 marks</span></div>
+    <div class="exam-q-body">
+      <p class="q-text">A student dissolves iron(III) chloride in water. The resulting solution has a pH of approximately 3.<br><br>(a) Write an equation to show why the solution is acidic. Include state symbols. [2]<br>(b) Explain why a solution of iron(II) chloride of the same concentration would have a higher pH. [3]</p>
+      <button class="reveal-btn" onclick="revealAnswer(this)">Show Mark Scheme</button>
+      <div class="reveal-content">
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>(a) [Fe(H2O)6]3+(aq) + H2O(l) &#8652; [Fe(H2O)5(OH)]2+(aq) + H3O+(aq) — reversible arrow required</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>(a) Correct state symbols throughout</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>(b) Fe3+ has a higher charge density (higher charge and/or smaller radius) than Fe2+</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>(b) Fe3+ polarises the O-H bonds in the co-ordinated water ligands to a greater extent, weakening them more</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>(b) Protons are more easily released from [Fe(H2O)6]3+ &#8594; greater [H+] &#8594; lower pH</span></div>
+        <div class="mistake" style="margin-top:10px;"><strong>&#9888;&#65039; Common error:</strong> Stating only "Fe3+ has a higher charge" without linking to O-H bond polarisation and H+ release. All three steps required.</div>
+        <div class="tip"><strong>&#9989; Note:</strong> Using &#8594; instead of &#8652; in equation (a) loses 1 mark.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exam-q">
+    <div class="exam-q-header"><h4>Q2 — Reactions with NaOH</h4><span class="marks-badge">6 marks</span></div>
+    <div class="exam-q-body">
+      <p class="q-text">Describe what you would observe, and write equations, when NaOH is added dropwise and then in excess to a solution of aluminium sulfate. [6]</p>
+      <button class="reveal-btn" onclick="revealAnswer(this)">Show Mark Scheme</button>
+      <div class="reveal-content">
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>A white precipitate forms</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>[Al(H2O)6]3+(aq) + 3OH-(aq) &#8652; [Al(H2O)3(OH)3](s) + 3H2O(l)</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>On addition of excess NaOH, the white precipitate dissolves</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>A colourless solution is formed</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>[Al(H2O)3(OH)3](s) + OH-(aq) &#8594; [Al(H2O)2(OH)4]-(aq) + H2O(l)</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>State symbols correct throughout</span></div>
+        <div class="tip"><strong>&#9989; Language:</strong> Write "colourless solution" not "clear solution." Clear = transparent; colourless = no colour.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exam-q">
+    <div class="exam-q-header"><h4>Q3 — Na2CO3 with M2+ and M3+ ions</h4><span class="marks-badge">5 marks</span></div>
+    <div class="exam-q-body">
+      <p class="q-text">When Na2CO3 is added to iron(III) sulfate, a brown precipitate and gas are produced. When added to iron(II) sulfate, only a green precipitate forms — no gas.<br><br>Explain this difference and include equations. [5]</p>
+      <button class="reveal-btn" onclick="revealAnswer(this)">Show Mark Scheme</button>
+      <div class="reveal-content">
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>[Fe(H2O)6]3+ has higher charge density — higher charge, smaller radius</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>[Fe(H2O)6]3+ is sufficiently acidic to donate H+ to CO3 2-; [Fe(H2O)6]2+ is not</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>CO3 2- acts as a base with Fe3+ &#8594; hydrolysis &#8594; brown ppt + CO2</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>Fe3+: 2[Fe(H2O)6]3+(aq) + 3CO3 2-(aq) &#8594; 2[Fe(H2O)3(OH)3](s) + 3CO2(g) + 3H2O(l)</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>Fe2+: [Fe(H2O)6]2+(aq) + CO3 2-(aq) &#8594; FeCO3(s) + 6H2O(l)</span></div>
+        <div class="mistake" style="margin-top:10px;"><strong>&#9888;&#65039; Zero marks error:</strong> Writing Fe2(CO3)3 as a product. This compound does not exist under aqueous conditions.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exam-q">
+    <div class="exam-q-header"><h4>Q4 — Cu2+ with excess ammonia</h4><span class="marks-badge">5 marks</span></div>
+    <div class="exam-q-body">
+      <p class="q-text">Describe what you would observe when NH3(aq) is added dropwise and then in excess to copper(II) sulfate solution. Write equations for each stage and identify the type of reaction in the final step. [5]</p>
+      <button class="reveal-btn" onclick="revealAnswer(this)">Show Mark Scheme</button>
+      <div class="reveal-content">
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>A pale blue precipitate forms</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>[Cu(H2O)6]2+(aq) + 2NH3(aq) &#8652; [Cu(H2O)4(OH)2](s) + 2NH4+(aq)</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>The pale blue precipitate dissolves to give a deep blue solution</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>[Cu(H2O)4(OH)2](s) + 4NH3(aq) &#8652; [Cu(H2O)2(NH3)4]2+(aq) + 2H2O(l) + 2OH-(aq)</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>Ligand substitution — four NH3 replace four H2O around Cu2+</span></div>
+        <div class="mistake" style="margin-top:10px;"><strong>&#9888;&#65039; Common error:</strong> Writing [Cu(NH3)4]2+ or [Cu(NH3)6]2+. Correct formula is <strong>[Cu(H2O)2(NH3)4]2+</strong>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exam-q">
+    <div class="exam-q-header"><h4>Q5 — Concentrated HCl and ligand substitution</h4><span class="marks-badge">4 marks</span></div>
+    <div class="exam-q-body">
+      <p class="q-text">When conc. HCl is added to [Cu(H2O)6]2+, the solution turns yellow-green.<br><br>(a) Write an equation. Include state symbols. [2]<br>(b) State the change in co-ordination number and shape, and explain why. [2]</p>
+      <button class="reveal-btn" onclick="revealAnswer(this)">Show Mark Scheme</button>
+      <div class="reveal-content">
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>(a) [Cu(H2O)6]2+(aq) + 4Cl-(aq) &#8652; [CuCl4]2-(aq) + 6H2O(l)</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>(a) Correct state symbols</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>(b) Co-ordination number 6 &#8594; 4; octahedral &#8594; tetrahedral</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>(b) Cl- is larger than H2O — only four Cl- fit around Cu2+</span></div>
+        <div class="mistake" style="margin-top:10px;"><strong>&#9888;&#65039; Common error:</strong> Writing [CuCl4]2+ instead of [CuCl4]2-. Recalculate: Cu(+2) + 4Cl(-1 each) = -2 overall.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exam-q">
+    <div class="exam-q-header"><h4>Q6 — Multi-step synoptic identification</h4><span class="marks-badge">6 marks</span></div>
+    <div class="exam-q-body">
+      <p class="q-text"><strong>Solution P:</strong> White ppt with NaOH, dissolves in excess &#8594; colourless soln. White ppt with Na2CO3 + CO2 gas.<br><strong>Solution Q:</strong> Blue ppt with NaOH, no change in excess. Blue-green ppt with Na2CO3, no gas.<br><br>(a) Identify P and Q. [2]<br>(b) Write equation for P + excess NaOH. [2]<br>(c) Explain why P produces CO2 but Q does not. [2]</p>
+      <button class="reveal-btn" onclick="revealAnswer(this)">Show Mark Scheme</button>
+      <div class="reveal-content">
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>(a) P = Al3+; Q = Cu2+</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>(b) [Al(H2O)3(OH)3](s) + OH-(aq) &#8594; [Al(H2O)2(OH)4]-(aq) + H2O(l)</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>(b) Correct state symbols</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>(c) Al3+ has higher charge density &#8594; stronger Bronsted-Lowry acid than Cu2+</span></div>
+        <div class="ms-item"><span class="ms-tick">&#10003;</span><span>(c) Al3+ is acidic enough to donate H+ to CO3 2- &#8594; CO2; Cu2+ is not &#8594; simple precipitation of CuCO3</span></div>
+        <div class="tip" style="margin-top:10px;"><strong>&#9989; Exam technique:</strong> Work systematically — use each observation to eliminate possibilities, then explain using charge density and acid strength.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+<script>
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+  document.querySelectorAll('.nav-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+function toggle(header) {
+  header.parentElement.classList.toggle('open');
+}
+function revealAnswer(btn) {
+  var c = btn.nextElementSibling;
+  c.classList.toggle('shown');
+  btn.textContent = c.classList.contains('shown') ? 'Hide Mark Scheme' : 'Show Mark Scheme';
+}
+</script>
+</body>
+</html>
